@@ -1,0 +1,123 @@
+*{
+   font-family: Arial, Helvetica, sans-serif !important;
+   
+}
+body{
+    background: #EEE url(./../Images/bg_pattern_img.png) no-repeat 0 100%;
+    font-size: 12px !important;
+}
+ul,li{
+	list-style-type:none;
+}
+td{
+	white-space:nowrap;
+}
+a, a:hover{
+	color:#000;
+    cursor: pointer;
+}
+*, a:hover{
+	
+	text-decoration:none;
+}
+/*.container{
+	background: url(./../Images/bg_pattern_img.png) no-repeat 0 100%;
+}*/
+.userProfile{
+	background: url(./../Images/profileImage.png) no-repeat 100% 50%;
+	color:#000;
+	padding-right:4rem !important;
+}
+.searchBar{
+	background:#1e376d url(./../Images/banner_img.png) no-repeat 100% 50%;
+	background-size: auto auto;
+}
+.searchForm{
+	margin:0 auto !important;
+}
+.btn-info,
+.btn-info:hover{
+	background: #01a4cd;
+}
+.searchBar  .control-label{
+	font-size:1.15em;
+}
+.searchBar .alert-success{
+	background: transparent url(./../Images/ic_tick.png) no-repeat 0 14px;
+	color: #76ba19;
+	font-size: 1.4em;
+}
+
+/*navBand*/
+.navBand .nav-tabs .nav-item.show .nav-link,
+.navBand  .nav-tabs .nav-link.active,
+.navBand  .nav-tabs .nav-link:hover{
+	border-bottom: 3px solid #00a8d0;
+	border-left: 1px solid #fff;
+	border-right: 1px solid #fff;
+	color: #00a8d0;
+}
+
+/*.navBand  .nav-tabs .nav-link:hover{
+	color: #666;
+	border-bottom: 3px solid transparent;
+}*/
+.navBand.border-bottom{
+	border-bottom: 2px solid #acacac !important;
+}
+.dataSection{
+	min-height: 750px;
+}
+.tab-content .table-responsive{
+	height: 450px;
+	overflow-y: scroll;
+}
+.card-deck .card{
+	height: 7.1em;
+}
+.cardNoBg{
+	background: transparent;
+}
+.card-one .display-4,
+.card-two .display-4{
+	color: #00a8d0;
+	font-size: 2.15em;
+}
+.infoDetails .display-4{
+	line-height: 0;
+}
+.planOne{
+	line-height: 28px;
+}
+.planTwo{
+	line-height: 38px;
+}
+.card-deck{
+	overflow : hidden;
+}
+.card-three li{
+	line-height: 2.41em;
+}
+.value{
+	color:#00a8d0;
+}
+.btn-download{
+	background: transparent url(./../Images/ic_download.png) no-repeat 0 0;
+	color:#1e376d;
+	line-height: 24px;
+	padding-left:3em;
+}
+.btn-close{
+	color:#1e376d;
+	font-size: 0.85em;
+	margin-top:-2px;
+}
+
+table#csvtable tr:first-child td{
+	font-weight:bold;
+}
+.showMenu{
+	display:none; 
+	z-index:1; 
+	position:absolute
+}

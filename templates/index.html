@@ -1,0 +1,368 @@
+<!doctype html>
+<!--[if lt IE 8]><html lang="en" class="ie7"><![endif]-->
+<!--[if IE 8]><html lang="en" class="ie8"><![endif]-->
+<!--[if IE 9]><html lang="en" class="ie9"><![endif]-->
+<!--[if gt IE 9]><html lang="en"><![endif]-->
+<!--[if !IE]><html lang="en"><![endif]-->
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1, maximum-scale=1, minimum-scale=1">
+    <meta name="description" content="Machine Failure Prediction" />
+    <meta name="keywords" content="Machine Failure Prediction" />
+	<link rel="shortcut icon" href="../static/Images/favicon.ico" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <title>Machine Failure Prediction</title>
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="../static/Styles/bootstrap.min.css" type="text/css" >
+    <link rel="stylesheet" href="../static/Styles/jquery.dataTables.min.css" type="text/css" >
+    <link rel="stylesheet" href="../static/Styles/globalStyles.css" type="text/css" />
+	<link rel="stylesheet" href="../static/Styles/myStyle.css" type="text/css" />
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css" integrity="sha512-dTfge/zgoMYpP7QbHy4gWMEGsbsdZeCXz7irItjcC3sPUFtf0kuFbDz/ixG7ArTxmDjLXDmezHubeNikyKGVyQ==" crossorigin="anonymous">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+	<script src="../static/Scripts/myScript.js"></script>	
+    
+  </head>
+  <body>
+    <div class="container">
+      <div class="row">
+	  <section class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 searchBar" style="padding-top:15px;padding-bottom:15px;">
+		<a title="Logo">
+			<!-- <img src="Images/ndbs.png" class="img-fluid pt-2" alt="NDBS Logo" style="max-width: 60%;height: 100px;padding: 20px;"/> -->
+		</a>
+		<span style="color:white;font-size:25px;">Machine Failure Prediction</span>
+	  
+	  </section>
+	 
+		<div class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 p-0 dataSection">
+			<section class="clearfix col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 bg-white navBand shadow-lg border-bottom mb-2">
+				<ul class="border-bottom-0 nav nav-tabs float-left" id="myTab" role="tablist" style="padding:20px;">
+					<li class="nav-item">
+						<a class="text-uppercase font-weight-bold nav-link active" id="preview-tab" data-toggle="tab" href="#preview" role="tab" aria-controls="preview" aria-selected="true">Factory Flow</a>
+					</li>
+					
+					<li class="nav-item">
+						<a class="text-uppercase font-weight-bold nav-link" id="dataExploration-tab" data-toggle="tab" href="#dataExploration" role="tab" aria-controls="dataExploration" aria-selected="false">Data Exploration</a>
+					</li>
+					
+					<li class="nav-item">
+						<a class="text-uppercase font-weight-bold nav-link" id="modelSummary-tab" data-toggle="tab" href="#modelSummary" role="tab" aria-controls="modelSummary" aria-selected="false">Model Summary</a>
+					</li>
+					<li class="nav-item">
+						<a class="text-uppercase font-weight-bold nav-link" id="prediction-tab" data-toggle="tab" href="#prediction" role="tab" aria-controls="prediction" aria-selected="false">Prediction</a>
+					</li>
+
+                    <li class="nav-item">
+						<a class="text-uppercase font-weight-bold nav-link" id="powerbi-viz-tab" data-toggle="tab" href="#powerbi-viz" role="tab" aria-controls="prediction" aria-selected="false">Dashboard</a>
+					</li>
+                    
+                    
+				</ul>
+			</section>
+			<!--END navBand-->
+		
+			<div class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 tab-content bg-white py-3">
+                
+            <div class="tab-pane fade show active" id="preview" role="tabpanel" aria-labelledby="preview-tab">
+			    <div class="row" style="position: relative"> 
+                    <h4 style="	color:#DC7633;">Factory Flow</h4>
+                    <li class="timestamp col-md-3">
+                        <h4 id="timestamp_val"></h4>
+                    </li>
+                    
+                    <button type="button" class="btn btn-danger" style="position: absolute; right: 10px;" id="reset_btn">Reset</button>
+                </div>
+				<div class="row">
+                    <div class="card-deck col-md-3">
+						<div class="card rounded-0 shadow card-one cardme">
+                            <h4 style="color: #DC7633">Assembly Plant</h4>
+                            <h5>Temp (norm) =>  <b><span id="temperature">Starting...</span></b></h5>
+                            <h5>Sensor_7 => <b><span id="sensor7">Starting...</span></b></h5>
+                            <h5>Sensor_8 => <b><span id="sensor8">Starting...</span></b></h5>
+                            <h5>Probability of Failure =>  <b><span id="probability1">...</span></b></h5>
+                        </div>
+                        <div class="card rounded-0 shadow card-one cardme" > 
+                            <h4 style="color: #DC7633">Conveyor Belt</h4>
+                            <h5>Rotatemean => <b><span id="rotatemean">Starting...</span></b></h5>
+                            <h5>Voltmean => <b><span id="voltmean">Starting...</span></b></h5>
+                            <h5>Vibrationmean => <b><span id="vibrationmean">Starting...</span></b></h5>
+                            <h5>Probability of Failure => <b><span id="probability2">..</span></b></h5>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <img src = '../static/Images/factory_plant.gif' width="115%" style="margin-top: 3%">
+                    </div>
+                    
+					<div class="col-md-3" style="margin-left:2%; margin-top:10%">
+						<div class="card rounded-0 shadow card-one cardme">
+                            <h4 style="color: #DC7633">Packaging Plant</h4>
+                            <h5>Rot_speed_[rpm] =>  <b><span id="bpr">Starting...</span></b></h5>
+                            <h5>Air_temp_[K](norm) => <b><span id="temperature3">Starting...</span></b></h5>
+                            <h5>Tool_wear_[min] => <b><span id="ps">Starting...</span></b></h5>
+                            <h5>Prob. of Failure =>  <b><span id="probability3">...</span></b></h5>
+                        </div>
+                    </div>
+                    
+                </div>
+				
+			</div>
+			 
+                <div class="tab-pane fade" id="dataExploration" role="tabpanel" aria-labelledby="dataExploration-tab">
+				<br>
+					  <ul class="nav nav-pills" style="font-size:15px;">
+                          <li><a data-toggle="pill" href="#model1">Assemby Plant</a></li>
+                          <li><a data-toggle="pill" href="#model2">Conveyor Belt</a></li>
+                          <li  class="active"><a data-toggle="pill" href="#model3">Packaging Plant</a></li>
+					  </ul>
+					  
+					  <div class="tab-content">
+                          <br><br>
+							  <div id="model1" class="tab-pane fade in active">
+                                  <div class="row">
+                                    <div class="col-md-4">
+                                        <h4 class="text-center" style="	color:#DC7633;">Correlation Matrix</h4><br>
+                                        <img src="../static/model_results/Correlation_matrix_model1.png" style="width:100%">
+                                    </div>
+                                    <div class="col-md-4">
+                                        <h4 class="text-center" style="	color:#DC7633;">Failure vs Temperature</h4><br>
+                                        <img src="../static/model_results/box_plot_model1.png" style="width:100%"/>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <h4 class="text-center" style="	color:#DC7633;">Model results</h4><br>
+                                        <img src="../static/model_results/GLM_model1.png" style="width:120%"/>
+                                    </div>
+                                    
+                                  </div>
+                                  
+							  </div>
+							  <div id="model2" class="tab-pane fade">
+                                   <div class="row">
+                                        <div class="col-md-4">
+                                            <h4 class="text-center" style="	color:#DC7633;">Correlation Matrix</h4><br>
+                                            <img src="../static/model_results/Correlation_matrix_model2.png" style="width:100%">
+                                        </div>
+                                        <div class="col-md-4">
+                                            <h4 class="text-center" style="	color:#DC7633;">Failure vs Volt mean</h4><br>
+                                            <img src="../static/model_results/box_plot_model2.png" style="width:100%"/>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <h4 class="text-center" style="	color:#DC7633;">Model results</h4><br>
+                                            <img src="../static/model_results/GLM_model2.PNG" style="width:120%"/>
+                                        </div>
+                                    </div>
+							  </div>							 
+							  <div id="model3" class="tab-pane fade">
+                                   <div class="row">
+                                        <div class="col-md-6">
+                                            <h4 class="text-center" style="	color:#DC7633;">Correlation Matrix</h4><br>
+                                            <img src="../static/model_results/Correlation_matrix_model3.png" style="width:100%">
+                                        </div>
+                                        <div class="col-md-6">
+                                            <h4 class="text-center" style="	color:#DC7633;">Failure vs Rotational_speed_[rpm]</h4><br>
+                                            <img src="../static/model_results/box_plot_model3.png" style="width:100%"/>
+                                        </div>
+                                        <!-- <div class="col-md-4">
+                                            <h4 class="text-center" style="	color:#DC7633;">Model results</h4><br>
+                                            <img src="" style="width:120%"/>
+                                        </div> -->
+                                  </div>                                     
+							  </div>
+                      </div>
+
+			  </div>
+			  
+                <div class="tab-pane fade" id="modelSummary" role="tabpanel" aria-labelledby="modelSummary-tab">
+				<br>
+					<ul class="nav nav-pills" style="font-size:15px;">
+						<li class="active" ><a data-toggle="pill" href="#varImp">Variable Importance</a></li>
+						<li><a data-toggle="pill" href="#receiver">Receiver Operating Characteristic</a></li>
+						<!--<li><a data-toggle="pill" href="#lift">Lift & Gain Chart</a></li>-->
+						<li><a data-toggle="pill" href="#classification">Confusion Matrix</a></li>
+						<li><a data-toggle="pill" href="#report">Classification Report</a></li>
+							
+					</ul>
+					  <br><br>
+					  <div class="tab-content">
+						<div id="varImp" class="tab-pane fade in active">
+							<div class="row">
+                                <div class="col-md-4">
+                                    <h4 class="text-center" style="color:#DC7633;">Model1 Features</h4><br>
+                                    <img src="../static/model_results/feat_imp_model1.png" style="width: 110%" />
+                                </div>
+                                <div class="col-md-4">
+                                    <h4 class="text-center" style="color:#DC7633;">Model2 Features</h4><br>
+                                    <img src="../static/model_results/feat_imp_model2.png" style="width:110%;" />
+                                </div>
+                                <div class="col-md-4">                                    
+                                    <h4 class="text-center" style="color:#DC7633;">Model3 Features</h4><br>
+                                    <img src="../static/model_results/feat_imp_model3.png" style="width:110%" />
+                                </div>
+                            </div>
+                            <br>
+				        </div>
+						<div id="receiver" class="tab-pane fade">
+							<div class="row">
+                                <div class="col-md-4">
+                                    <h4 class="text-center" style="color:#DC7633;">Model1 ROC</h4><br>
+                                    <img src="../static/model_results/ROC_LR_model1.png" style="height:300px;" />
+                                </div>
+                                <div class="col-md-4">
+                                    <h4 class="text-center" style="color:#DC7633;">Model2 ROC</h4><br>
+                                    <img src="../static/model_results/ROC_LR_model2.png" style="height:300px;" />
+                                </div>
+                                <div class="col-md-4">                                    
+                                    <h4 class="text-center" style="color:#DC7633;">Model3 ROC</h4><br>
+                                    <img src="../static/model_results/ROC_RF_model3.png" style="height:300px;" />
+                                </div>
+                            </div>
+						</div>
+						<!--<div id="lift" class="tab-pane fade">
+							<br><br><br>
+							<h4>Gain Charts</h4>
+							<br>
+							<div class="row">
+								<img src="Models\Lift_Gains chart\cumulative_gains_lr.png" class="col-md-3" style="height:250px;"/>
+								<img src="Models\Lift_Gains chart\cumulative_gains_rfd.png" class="col-md-3" style="height:250px;"/>
+								<img src="Models\Lift_Gains chart\cumulative_gains_DNN.png" class="col-md-3" style="height:250px;"/>
+								<img src="Models\Lift_Gains chart\cumulative_gains_gbm.png" class="col-md-3" style="height:250px;"/>
+								
+							</div>
+							<br><br>
+							<h4>Lift Charts</h4>
+							<br>							
+							<div class="row">
+								<img src="Models\Lift_Gains chart\lift_curve_lr.png" class="col-md-3" style="height:250px;"/>
+								<img src="Models\Lift_Gains chart\lift_curve_rf.png" class="col-md-3" style="height:250px;"/>
+								<img src="Models\Lift_Gains chart\lift_curve_DNN.png" class="col-md-3" style="height:250px;"/>
+								<img src="Models\Lift_Gains chart\lift_curve_gbm.png" class="col-md-3" style="height:250px;"/>
+								
+							</div>	
+						</div>-->
+						<div id="classification" class="tab-pane fade">
+							<div class="row">
+                                <div class="col-md-4">
+                                    <h4 class="text-center" style="color:#DC7633;">Model1 Confusion matrix</h4><br>
+                                    <img src="../static/model_results/CNF_LR_model1.png" style="height:300px;" />
+                                </div>
+                                <div class="col-md-4">
+                                    <h4 class="text-center" style="color:#DC7633;">Model2 Confusion matrix</h4><br>
+                                    <img src="../static/model_results/CNF_LR_model2.png" style="height:300px;" />
+                                </div>
+                                <div class="col-md-4">                                    
+                                    <h4 class="text-center" style="color:#DC7633;">Model3 Confusion matrix</h4><br>
+                                    <img src="../static/model_results/CNF_RF_model3.png" style="height:300px;" />
+                                </div>
+                            </div>
+						</div>
+                          <div id="report" class="tab-pane fade">
+							<div class="row">
+                                <div class="col-md-4">
+                                    <h4 class="text-center" style="color:#DC7633;">Model1 Report</h4><br>
+                                    <img src="../static/model_results/temp/report1_LR_model1.png" style="width: 100%;" />
+                                </div>
+                                <div class="col-md-4">
+                                    <h4 class="text-center" style="color:#DC7633;">Model2 Report</h4><br>
+                                    <img src="../static/model_results/temp/report_LR_model2.PNG" style="width: 100%;"/>
+                                </div>
+                                <div class="col-md-4">                                    
+                                    <h4 class="text-center" style="color:#DC7633;">Model3 Report</h4><br>
+                                    <img src="../static/model_results/temp/report_RF_model3.PNG" style="width: 100%;" />
+                                </div>
+                            </div>
+						</div>
+				</div>
+			  </div>
+
+                <div class="tab-pane fade" id="prediction" role="tabpanel" aria-labelledby="modelPrediction-tab">
+				<h4 style="	color:#DC7633;">Prediction</h4>
+				<div class="row divSection">
+					<div class="card-deck col-md-8">
+						<div class="card rounded-0 shadow card-one" style="height:8.5em">                            
+							<div class="card-body text-center p-0 pt-2 filePos" style="flex: 0.1 0.1 auto;">
+                                <div class="form-group col-md-3">
+                                  <select class="form-control" id="engine" style=" height: 35px">
+                                    <option value="">Select Engine</option>
+                                    <option value="model1">Assembly Plant</option>
+                                    <option value="model2">Conveyor Belt</option>
+                                    <option value="model3" class="active">Packaging Plant</option>
+                                  </select>
+                                </div>
+
+                               <input type="file" class="file" name="file" id="filePredict">
+                                    <div class="input-group col-xs-8">
+                                     <!-- <span class="input-group-addon"><i class="glyphicon glyphicon-file"></i></span>-->
+                                      <input type="text" class="form-control txt" disabled placeholder="Upload CSV">
+                                      <span class="input-group-btn">
+                                        <button class="btn btn-primary" id="browse" type="button">Select a File</button>
+                                        <button class="btn btn-primary" id="buttonSubmit" type="button" style="margin-left:10px;">Execute</button>
+                                        </span>
+                                    </div>
+							 </div>							
+						</div>					
+					</div>
+                    <div class="card-deck col-md-4">
+						<div class="card rounded-0 shadow card-one" style="height:8.5em">                            
+							<div class="card-body p-0 pt-2" style="flex: 0.1 0.1 auto;">
+                                <div class="image-container">
+                                    <h4>Prediction Labels -</h4>
+                                    <img src="../static/Images/right_mark.png" style="width: 9%"/>  <b>- Failure </b>
+                                    <img src="../static/Images/wrong_mark.png" style="width: 9%"/>  <b>- Non-Failure </b>                         
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+				</div>
+                
+                <h4 style="color:#DC7633;">Output Results :</h4><br>
+                <div class="loader" style=" text-align:center;"><img src="../static/Images/spinner.gif" style="width:10%;"></div>
+
+                <div  id="table_div" style="overflow: scroll; height: 500px; display: none;">
+                    <table class="table table-hover table-bordered" id="pred_results">
+                    </table>
+                </div>
+
+		        </div>
+
+                <div class="tab-pane fade" id="powerbi-viz" role="tabpanel" aria-labelledby="powerbi-viz-tab">
+                    <br>  
+                        <div class="tab-content">
+                                <div id="powerbi-dashb" class="tab-pane fade in active">
+                                    <div class="row">
+                                    <div class="col-md-9">
+                                        <h4 class="text-center" style="	color:#DC7633;">Power Bi Dashboard for predictions</h4><br>
+                                        
+                                        <!-- <iframe title="mf_report" width="1080" height="473.5" src="
+                                            https://app.fabric.microsoft.com/view?r=eyJrIjoiZDUyNjg0N2YtNzc3MC00YWQ1LThhMjYtNGQwZGExNTcwYjg4IiwidCI6IjQ5MDk4NjljLWJmM2QtNGI0Yy1iMjQ1LTkxZGQwNTE3ZGUzOSIsImMiOjEwfQ%3D%3D"
+                                            frameborder="0" allowFullScreen="true">
+                                        </iframe> -->
+                                        <img src="../static/Images/powerbi_viz.png"  alt="power bi predn viz">
+                                    </div>
+                                    </div>
+                                </div>
+                        </div>    
+                </div>
+
+            </div>
+		<!--END dataSection-->
+        </div>
+	  <!--END row-->
+    </div>
+	<!--END container -->
+</div>
+
+
+
+
+
+
+
+	<script src="../static/Scripts/jquery.js" type="text/javascript"></script>
+	<script type="text/javascript" src="../static/Scripts/jquery.csv-0.71.min.js"></script>
+	<script src="../static/Scripts/jquery.dataTables.min.js" type="text/javascript"></script>
+	<script src="../static/Scripts/jquery.dataTables.min.js" type="text/javascript"></script>
+	<script src="../static/Scripts/bootstrap.min.js" type="text/javascript"></script>    
+    <script src="../static/Scripts/bootstrap-filestyle.min.js" type="text/javascript"></script>
+    <script src="../static/Scripts/dataTables.bootstrap4.min.js" type="text/javascript"></script>
+</body>
+</html>

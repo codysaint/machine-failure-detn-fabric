@@ -1,0 +1,71 @@
+.image-container{
+    /* display: flex; */
+    justify-content: space-between;
+}
+
+.file {
+  visibility: hidden;
+  position: absolute;
+}
+
+.filePos{
+	margin-left:5%;
+	margin-top:20px;
+	margin-bottom:20px;
+}
+
+.buttonExecute{
+	margin-left:5%;
+	
+}
+.displayOffer{
+	margin-left:5%;
+	margin-top:3%;
+	
+}
+.downloadPos{
+	margin-top:5%;
+	margin-left:5%;
+}
+#buttonPrediction
+{
+	margin-left:33px;
+}
+.divSection{
+	padding:10px;
+}
+
+table th {
+    position: sticky;
+    top: 0;
+    z-index: 5;
+    background: lightgray;
+}
+.cardme{
+    height:160px !important;
+    background-color: lavender;
+    width:95%;
+    padding:2% 3%;
+    flex:none !important; 
+    margin:10px 5px;
+    border-radius: 10px !important;
+}
+
+.timestamp{
+    right: 80px;
+    width: fit-content !important;
+    color:navy;
+    position: absolute !important;
+    background-color: lavender;
+    padding: 0px 15px;
+    border-radius: 5px;
+    font-weight: bolder;
+}
+
+h5{
+    margin-bottom : 0 !important;
+    font-weight: bold !important;
+}
+h5 span{
+    color: gray !important;
+}
